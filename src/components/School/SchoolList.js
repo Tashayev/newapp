@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Box, Card, Container, Link, Typography} from "@mui/material";
-import {Context} from "../index";
+import {Context} from "../../index";
 import SchoolItem from "./SchoolItem";
-import {SCHOOL_ROUTE} from "../utils/consts"
+import {SCHOOL_ROUTE} from "../../utils/consts"
 import {useNavigate} from "react-router-dom";
 const SchoolList = observer(() => {
     const {school} = useContext(Context)
@@ -23,7 +23,7 @@ const SchoolList = observer(() => {
             <Box
                 sx={{display: "flex", flexDirection:"row"}}
             >
-                {school.schools.slice(0, 4).map((school,index )=>
+                {school.schools.slice(0, 4).map((school, index)=>
                     <SchoolItem  sx={{paddingRight:3}} key={index} school={school}/>
                 )}
             </Box>

@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import ban from "../components/assets/banner-3.jpg"
 import {styled} from "@mui/material/styles";
 
-import SchoolList from "../components/SchoolList";
+import SchoolList from "../components/School/SchoolList";
 const Image = styled("div")({
     position: "relative",
     minWidth: '100vw',

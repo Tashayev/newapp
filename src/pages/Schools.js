@@ -1,8 +1,7 @@
 import React, {useContext} from 'react';
-import {Box, Card, Container, Grid, Typography} from "@mui/material";
-import {Form, useNavigate} from "react-router-dom";
-import {Image} from "@mui/icons-material";
-import SchoolItem from "../components/SchoolItem";
+import {Box, Container, Typography} from "@mui/material";
+
+import SchoolItem from "../components/School/SchoolItem";
 import {Context} from "../index";
 
 
@@ -16,7 +15,7 @@ const Schools = () => {
                     Школы
                 </Typography>
                 <Box sx={{display:"flex",  flexFlow:"row wrap",  gap:3, mt: 3, pl:0}}>
-                    {school.schools.map((school,index )=>
+                    {school.schools.map((school, index)=>
                         <Box sx={{pl:0}}>
                             <SchoolItem key={index} school={school}/>
                         </Box>

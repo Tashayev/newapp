@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Box, Card, CardActions, CardContent, CardMedia, Container, ImageList, Typography} from "@mui/material";
+import {Box, Card, CardContent, CardMedia, Container, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {SCHOOL_ROUTE} from "../utils/consts";
+import {SCHOOL_ROUTE} from "../../utils/consts";
 const SchoolItem = ({school}) => {
 
     const navigate = useNavigate()
