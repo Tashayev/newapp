@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
-import {Box, Card, Container, Link, Typography} from "@mui/material";
+import {Box, Container, Link, Typography} from "@mui/material";
 import {Context} from "../../index";
 import SchoolItem from "./SchoolItem";
 import {SCHOOL_ROUTE} from "../../utils/consts"
 import {useNavigate} from "react-router-dom";
 const SchoolList = observer(() => {
-    const {school} = useContext(Context)
     const navigate = useNavigate()
-    console.log(school)
-    return (
+    const {organizations} = useContext(Context)
+
+    return(
         <Container >
             <div style={{display:"flex", justifyContent:"space-between",alignItems:"center", marginTop:50, marginBottom:10}}>
                 <Typography sx={{fontSize:24, fontWeight:700, color:"#333"}}>
@@ -19,18 +19,14 @@ const SchoolList = observer(() => {
                     Показать все
                 </Link>
             </div>
-
             <Box
                 sx={{display: "flex", flexDirection:"row"}}
             >
-                {school.schools.slice(0, 4).map((school, index)=>
-                    <SchoolItem  sx={{paddingRight:3}} key={index} school={school}/>
+                {organizations?.map((organization)=>
+                    <SchoolItem  sx={{paddingRight:3}}  organization={organization} key={organization.pk}/>
                 )}
             </Box>
-
         </Container>
-
-
     );
 })
 export default SchoolList;

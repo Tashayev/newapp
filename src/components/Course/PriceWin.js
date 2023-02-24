@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Card, CardActions, CardContent, Container, Typography} from "@mui/material";
-const PriceWin = ({courses}) => {
-
+const PriceWin = ({course}) => {
     const [day, setDay] = useState()
     const [hour, setHour] = useState()
     const [minute, setMinute] = useState()
@@ -30,20 +29,20 @@ const PriceWin = ({courses}) => {
     })
     return (
         <Container sx={{display:"flex", maxWidth: 254, justifyContent:"end"}}>
-            <Card  sx={{display:"flex", position:"fixed",  alignSelf:"center", flexDirection:"column", p:3}}>
+            <Card  sx={{display:"flex", position:"fixed",  alignSelf:"center", flexDirection:"column", p:3, width:280}}>
                 <CardContent sx={{display:"inherit",flexDirection:"column"}}>
                     <Typography sx={{ fontWeight:"bold", fontSize:36, textAlign:"center"}}>
-                        {Math.floor(courses.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸
+                        {Math.floor(course.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸
                     </Typography>
                 </CardContent>
                 <CardActions sx={{display:"flex", flexDirection:"column", rowGap:2}}>
                     <Button variant="contained"  sx={{backgroundColor:"#007aff", width:"98%",  p:"1%"}}>
-                        {Math.floor(courses.price*0.8).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸ VIP аккаунт
+                        {Math.floor(course.price*0.8).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸ VIP аккаунт
                     </Button>
                     <Button variant="contained"  sx={{ fontSize:24, width:"98%",  p:"1%"}} color="warning">
                         Купить
                     </Button>
-                    <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+                    <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between",  width:'100%'}}>
                         <Typography sx={{display:"inherit", justifyContent:"start",fontSize:16, fontWeight:"light", fontFamily:"GothamPro", color:"#828282"}}>До конца осталось:</Typography>
                         <Typography sx={{display:"inherit", justifyContent:"end",fontSize:16, fontWeight:"bold", fontFamily:"GothamPro"}}>{day} дней {hour}:{minute}:{second}</Typography>
                     </Box>

@@ -10,16 +10,14 @@ import {
     TableHead,
     TableRow, Typography
 } from "@mui/material";
-
-
-const CourseTab = ({courses}) => {
+const CourseTab = ({course}) => {
     return (
         <Container sx={{display:"grid"}}>
-            <TableContainer component={Paper}>
-                {courses.topics?.map((course, i) =>
+            <TableContainer component={Paper} sx={{width:798}}>
+                {course.topics?.map((course, i) =>
                     <Table key={i} component="th" scope="row">
                         <TableHead>
-                            <TableCell sx={{fontWeight:"bold"}}>
+                            <TableCell sx={{fontWeight:"bold",}}>
                                 {course.name}
                             </TableCell>
                         </TableHead>

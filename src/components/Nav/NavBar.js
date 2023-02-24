@@ -7,12 +7,12 @@ import {AppBar, Box, Button, IconButton, TextField, Toolbar, Typography} from "@
 import CustomizedMenus from "./CustomizedMenus"
 import Banner from "./Banner";
 import {NavLink} from "react-router-dom";
-import {LOGIN_ROUTE, MAIN_ROUTE} from "../../utils/consts";
+import {AUTH_ROUTE,  MAIN_ROUTE} from "../../utils/consts";
 import LangMenu from "./LangMenu";
 import {AccountCircle} from "@mui/icons-material";
+import LoginMenu from "./LoginMenu";
 const NavBar = observer(() => {
-    const {user} = useContext(Context)
-    const history = useNavigate()
+
     return (
         <AppBar position="relative" >
             <Banner/>
@@ -31,27 +31,8 @@ const NavBar = observer(() => {
                         <SearchIcon />
                     </IconButton>
                 </Box>
-                <Box style={{display:"flex", flexDirection:"row"}}>
-                    {user.isStudent ?
-                        <Typography sx={{display:"inherit", color:"black"}}>
-                            Name Surname
-                            <br/> 0Б
-                            <IconButton
-                                color="primary"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                        </Typography>
-                        :
-                        <Button
-                            variant="outlined" sx={{width:"150px", height:"37px", color:"#333", borderColor:"#333"}}
-                            onClick={()=>history(LOGIN_ROUTE)}
-                        >
-                            Войти
-                        </Button>
-                    }
-                    <LangMenu/>
-                </Box>
+                <LoginMenu/>
+                <LangMenu/>
             </Toolbar>
         </AppBar>
     );

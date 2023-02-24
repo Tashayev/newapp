@@ -1,13 +1,13 @@
 import {
-    TEACHER_ROUTE,
     MAIN_ROUTE,
     LOGIN_ROUTE,
     REGISTRATION_ROUTE,
     STUDENT_ROUTE,
     SCHOOL_ROUTE,
-    COURSE_ROUTE
+    COURSE_ROUTE,
+    AUTH_ROUTE, CATEGORY_ROUTE
 }
-from "./utils/consts";
+    from "./utils/consts";
 import Teacher from "./pages/Teacher";
 import Main from "./pages/Main";
 import Student from "./pages/Student";
@@ -15,16 +15,7 @@ import Schools from "./pages/Schools";
 import SchoolPage from "./pages/SchoolPage";
 import CoursePage from "./pages/CoursePage";
 import Auth from "./pages/Auth";
-
-
-
-export  const teacherRoute =[
-    {
-        path: TEACHER_ROUTE,
-        Component: Teacher
-    },
-
-]
+import CategoryPage from "./pages/CategoryPage";
 export const studentRoute =[
     {
         path: STUDENT_ROUTE,
@@ -39,7 +30,7 @@ export  const publicRoutes =[
     },
     {
         path: LOGIN_ROUTE,
-        Component: Student
+        Component: Teacher
     },
     {
         path: REGISTRATION_ROUTE,
@@ -50,7 +41,7 @@ export  const publicRoutes =[
         Component: Schools
     },
     {
-        path: SCHOOL_ROUTE + '/:id',
+        path: SCHOOL_ROUTE + '/:pk',
         Component: SchoolPage
     },
     {
@@ -58,7 +49,16 @@ export  const publicRoutes =[
         Component: CoursePage
     },
     {
-        path: LOGIN_ROUTE,
+        path: AUTH_ROUTE,
         Component: Auth
-    }
+    },
+    {
+        path: CATEGORY_ROUTE +'/:id',
+        Component: CategoryPage
+    },
+
+    {
+        path: CATEGORY_ROUTE +'/:id/sub/:course_category',
+        Component: CategoryPage
+    },
 ]

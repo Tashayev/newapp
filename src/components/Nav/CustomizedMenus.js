@@ -1,147 +1,131 @@
 import * as React from 'react';
 import {styled} from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Divider from "@mui/material/Divider";
-import {Box, Grid, ListItemText} from "@mui/material";
-const StyledMenu = styled((props) => (
-    <Menu
-        elevation={0}
-        anchorOrigin={{
-            vertical: 'bottom',
-
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'top',
-        }}
-        {...props}
-    />
-))(({ theme }) => ({
-    '& .MuiPaper-root': {
-        borderRadius: 5,
-        marginTop: theme.spacing(0),
-        minWidth: 550,
-        minHeight:500,
-        boxShadow:
-            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        '& .MuiMenu-list': {
-            padding: '30px 30px',
-        },
-        '& .MuiMenuItem-root': {
-
-            '& .MuiSvgIcon-root': {
-                justifyContent: "space-between",
-                fontSize: 14,
-                "&:hover":{
-                    color: "#2f80ed",
-                    marginRight: theme.spacing(0),
-                },
-            },
-            "&:hover":{
-                color: "#2f80ed",
-                background:"#fff",
-            },".1":{
-                display:"none"
-            }
-
-        },
-        '& .MuiButton-root': {
-            height:"70px",
-            background:"#f2f2f2",
-            color:"#333",
-            width:"140px"
-        },
+import {Box, ListItemText, Typography} from "@mui/material";
+import {useContext, useEffect, useState} from "react";
+import {fetchCategory} from "../../http/courseAPI";
+import {useNavigate} from "react-router-dom";
+import CategoryPage from "../../pages/CategoryPage";
+import {CATEGORY_ROUTE, SUB_CATEGORY_ROUTE} from "../../utils/consts";
+import {Context} from "../../index";
+const CategoryPicker= styled('div')({
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    position: 'relative',
+    height:50,
+    paddingLeft:15,
+    paddingRight:15,
+    color:'#333',
+    fontFamily: "GothamPro",
+    "&:hover":{
+        backgroundColor: '#e7e7e7',
+        '.sub-menu':{
+            maxHeight: 1000,
+        }
     },
-}));
+})
+const SubMenu = styled('div')({
+    '.sub-menu':{
+        position: "absolute",
+        background: '#fff',
+        zIndex: 11,
+        boxShadow: '0px 5px 2px rgba(0, 0, 0, 0.1)',
+        borderRadius: 5,
+        fontSize: 14,
+        lineHeight: 0,
+        color: '#333',
+        top: '100%',
+        left: 0,
+        width: 500,
+        maxHeight: 0,
+        overflow: "hidden",
+        transition: '.25s',
+        display: "flex",
+        '.sub-menu-wrapper':{
+            width: '100%',
+            height: '100%',
+            display: "flex",
+
+            '.divider':{
+                height: 150,
+                marginTop:20
+            },
+            '.panel':{
+                flex: 1,
+                padding: '0 30px',
+                margin: '30px 0',
+                display: "flex",
+                flexDirection: 'column',
+                '.left-item':{
+                    display: "flex",
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                },
+                '& > div:hover' :{
+                    color: '#2F80ED'
+                },
+                'div':{
+                    '&:active ':{
+                        color: '#2F80ED'
+                    },
+                }
+            },
+
+        },
+    }
+})
 export default function CustomizedMenus() {
-    const [anchorEl, setAnchorEl] = React.useState(null)
-    const open = Boolean(anchorEl);
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
+    const {categories} = useContext(Context)
+    const [subMenu, setSubMenu] = useState([]);
+    const navigate = useNavigate();
     return (
-        <Box style={{height:"50px", }}
-            // onMouseLeave={handlePopoverClose}
-        >
+        <CategoryPicker>
+            <Typography>
+                КАТЕГОРИИ
+            </Typography>
+            <KeyboardArrowDownIcon/>
+            <SubMenu >
+                <Box className="sub-menu">
+                    <Box className="sub-menu-wrapper">
+                        <Box className="panel left-panel">
+                            {categories?.map((category, i) =>
+                                <Box key={i}>
+                                    {category?.course_cnt > 0 ?
+                                        <div className='left-item'
+                                            onMouseEnter={() =>setSubMenu( category)}
+                                             onClick={()=>navigate(CATEGORY_ROUTE+'/'+category.id)}
 
-            <Button
-                sx={{height:"50px", display:"flex", justifyContent:"center"}}
-                endIcon={<KeyboardArrowDownIcon />}
-                // aria-owns={anchorEl ? "simple-menu" : undefined}
-                // aria-haspopup="true"
-                // onMouseOver={handlePopoverOpen}
-
-            >
-                Категории
-            </Button>
-            <StyledMenu
-                id="demo-customized-menu"
-                // anchorEl={anchorEl}
-                // open={Boolean(anchorEl)}
-                // onClose={handlePopoverClose}
-                // MenuListProps={{ onMouseLeave: handlePopoverClose }}
-            >
-                <Grid container
-                >
-                    <Grid item xs
-                          >
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="1">
-                            <ListItemText>Разработка</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="2">
-                            <ListItemText>Дизайн</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="3">
-                            <ListItemText>Маркетинг</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="4">
-                            <ListItemText>Языковые курсы</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="5">
-                            <ListItemText>Бизнес</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="6">
-                            <ListItemText>Личностное развитие</ListItemText>
-                            <ArrowForwardIosIcon />
-                        </MenuItem>
-                    </Grid>
-                    <Divider orientation="vertical" flexItem>
-                    </Divider>
-                    <Grid item xs>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="web dev">
-                            Веб-разработка
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="mob dev">
-                            Мобильные приложения
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="lang">
-                            Языки программирования
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="db">
-                            База данных
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="test">
-                            Тестировать ПО
-                        </MenuItem>
-                        <MenuItem onClick={handlePopoverClose} disableRipple className="dev">
-                            Разработка ПО
-                         </MenuItem>
-                    </Grid>
-                </Grid>
-            </StyledMenu>
-        </Box>
+                                        >
+                                            <Typography >{category.code}</Typography>
+                                            <Typography><ArrowForwardIosIcon /></Typography>
+                                        </div>
+                                        :null
+                                    }
+                                </Box>
+                            )}
+                        </Box>
+                        <Divider  orientation="vertical" flexItem  className='divider'/>
+                        <Box className="panel right-panel">
+                            {subMenu?.children?.map((c, i)=>
+                                <Box key={i}>
+                                    {c?.course_cnt > 0 ?
+                                        <ListItemText
+                                            onClick={()=>navigate(CATEGORY_ROUTE+'/'+subMenu.id+'/'+'sub'+'/'+c?.locales[0]?.course_category)}
+                                            key={c.id}
+                                        >
+                                             {c?.code}
+                                        </ListItemText>
+                                        :null
+                                    }
+                                </Box>
+                            )}
+                        </Box>
+                    </Box>
+                </Box>
+            </SubMenu>
+        </CategoryPicker>
     );
 }
