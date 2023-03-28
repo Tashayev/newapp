@@ -4,8 +4,10 @@ const GlobalStyle = createGlobalStyle`
   
   *{
     font-family: 'Open Sans', sans-serif;
-    margin: 0
-  }
+    margin: 0;
+   
+  },
+  
 `;
 
 export default GlobalStyle;

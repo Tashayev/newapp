@@ -1,53 +1,74 @@
 import * as React from 'react';
-import {Box,  FormControl, FormLabel,  Link, Typography} from "@mui/material";
-import {Input} from "@mui/joy";
-import Button from '@mui/joy/Button';
+import {
+    Box,
+    FormControl,
+    FormLabel,
+    Link,
+    Typography,
+    OutlinedInput,
+    ToggleButton,
+    InputAdornment, IconButton
+} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import AuthForm from "../components/style/AuthForm";
+import YellowButton from "../components/style/YellowButton";
+import {useNavigate} from "react-router-dom";
+import {REGISTRATION_ROUTE} from "../utils/consts";
+
 
 const Auth = () => {
+    const navigate = useNavigate()
+    const [showPassword, setShowPassword] = React.useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
     return (
-        <Box
-            sx={{
-                width: 300,
-                mx: 'auto', // margin left & right
-                my: 4, // margin top & botom
-                py: 3, // padding top & bottom
-                px: 2, // padding left & right
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                borderRadius: 'sm',
-                boxShadow: 'md',
-            }}
+        <AuthForm
+            sx={{ mx: 'auto', my: 4, py: 3, px: 2, gap: 2}}
         >
-            <Typography sx={{fontWeight:"bold"}}>Войти как ученик</Typography>
+            <Typography className='text'>Войти как ученик</Typography>
             <FormControl>
                 <FormLabel>Email</FormLabel>
-                <Input
-                    // html input attribute
+                <OutlinedInput
                     size="md"
                     type="login"
-                    placeholder="johndoe@email.com"
+                    placeholder="Введите email"
                 />
             </FormControl>
             <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Input
-                    // html input attribute
-                    name="email"
-                    type="email"
-                    placeholder="password"
+                <FormLabel>Пароль</FormLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    placeholder="Введите пароль"
                 />
             </FormControl>
-
-            <Button sx={{ mt: 1 /* margin top */ }}>Log in</Button>
-            <Typography
-                endDecorator={<Link >Sign up</Link>}
-                fontSize="sm"
-                sx={{ alignSelf: 'center' }}
-            >
-                Don&apos;t have an account?
-            </Typography>
-        </Box>
+            <Link>Забыли пароль?</Link>
+            <YellowButton variant="contained" >
+                Войти
+            </YellowButton>
+            <Typography className="small-text">Войти через</Typography>
+            <Box className='wrapper'>
+                <ToggleButton value='any' sx={{backgroundImage:'url("https://sprintz.kz/assets/img/social/vk.jpg")'}} ></ToggleButton>
+                <ToggleButton value='any' sx={{backgroundImage:'url("https://sprintz.kz/assets/img/social/google.jpg")'}} ></ToggleButton>
+                <ToggleButton value='any' sx={{backgroundImage:'url("https://sprintz.kz/assets/img/social/facebook.jpg")'}}></ToggleButton>
+            </Box >
+            <Link onClick={()=>navigate(REGISTRATION_ROUTE)}>Зарегистрироваться</Link>
+        </AuthForm>
     );
 };
 

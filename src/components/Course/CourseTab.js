@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Card,
-    Container,
+    Box,
     Paper,
     Table,
     TableBody,
@@ -11,9 +11,17 @@ import {
     TableRow, Typography
 } from "@mui/material";
 const CourseTab = ({course}) => {
+    const handleClickScroll = () => {
+        const element = document.getElementById('section-1');
+        if (element) {
+            // 👇 Will scroll smoothly to the top of the next section
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <Container sx={{display:"grid"}}>
-            <TableContainer component={Paper} sx={{width:798}}>
+        <Box sx={{display:"flex", maxWidth: {xs:450,sm:650,md:758}}}>
+            <TableContainer component={Paper} sx={{}}>
                 {course.topics?.map((course, i) =>
                     <Table key={i} component="th" scope="row">
                         <TableHead>
@@ -48,7 +56,7 @@ const CourseTab = ({course}) => {
                     </Table>
                 )}
             </TableContainer>
-        </Container>
+        </Box>
     );
 };
 

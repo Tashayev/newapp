@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardActions, CardContent, Container, Typography} from "@mui/material";
+import {Box, Button, Card,  Container, Typography} from "@mui/material";
+import YellowButton from "../style/YellowButton";
 const PriceWin = ({course}) => {
     const [day, setDay] = useState()
     const [hour, setHour] = useState()
@@ -27,26 +28,27 @@ const PriceWin = ({course}) => {
     useEffect(()=> {
         startTimer()
     })
+    function price(price){
+        return Math.floor(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+    }
     return (
-        <Container sx={{display:"flex", maxWidth: 254, justifyContent:"end"}}>
-            <Card  sx={{display:"flex", position:"fixed",  alignSelf:"center", flexDirection:"column", p:3, width:280}}>
-                <CardContent sx={{display:"inherit",flexDirection:"column"}}>
+        <Container sx={{display:"flex",   justifyContent:'end', width:'90vw', zIndex:100}}>
+            <Card  sx={{display:"flex", position:{sm:'static', xs:'static', md:"fixed"},  alignSelf:"center", flexDirection:"column", p:3, mb:40, width: {xs:'100%',sm:'100%', md:200, lg:280}, boxShadow:{xs:'none',sm:'none', md:'0 5px 30px rgb(0 0 0 / 10%)'}}}>
+
                     <Typography sx={{ fontWeight:"bold", fontSize:36, textAlign:"center"}}>
-                        {Math.floor(course.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸
+                        {price(course.price)} ₸
                     </Typography>
-                </CardContent>
-                <CardActions sx={{display:"flex", flexDirection:"column", rowGap:2}}>
-                    <Button variant="contained"  sx={{backgroundColor:"#007aff", width:"98%",  p:"1%"}}>
-                        {Math.floor(course.price*0.8).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₸ VIP аккаунт
+                    <Button variant="contained"  sx={{backgroundColor:"#007aff", width:"100%", mb:2}}>
+                        {price(course.price*0.8)} ₸ VIP аккаунт
                     </Button>
-                    <Button variant="contained"  sx={{ fontSize:24, width:"98%",  p:"1%"}} color="warning">
+                    <YellowButton   sx={{ fontSize:24, width:"100%",  display:'block', mb:2}}>
                         Купить
-                    </Button>
-                    <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between",  width:'100%'}}>
+                    </YellowButton>
+                    <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between",  width:'100%', }}>
                         <Typography sx={{display:"inherit", justifyContent:"start",fontSize:16, fontWeight:"light", fontFamily:"GothamPro", color:"#828282"}}>До конца осталось:</Typography>
                         <Typography sx={{display:"inherit", justifyContent:"end",fontSize:16, fontWeight:"bold", fontFamily:"GothamPro"}}>{day} дней {hour}:{minute}:{second}</Typography>
                     </Box>
-                </CardActions>
+
             </Card>
         </Container>
     );

@@ -5,19 +5,19 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Teacher = () => {
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
+    //
+    // const handleClick = () => {
+    //     setOpen(true);
+    // };
 
-    const handleClick = () => {
-        setOpen(true);
-    };
+    // const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    //     if (reason === 'clickaway') {
+    //         return;
+    //     }
 
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
-    };
+    //     setOpen(false);
+    // };
 
     const action = (
         <React.Fragment>
@@ -36,7 +36,7 @@ const Teacher = () => {
     );
     return (
         <div>
-            GOodby
+
         </div>
     );
 };

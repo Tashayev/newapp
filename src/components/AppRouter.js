@@ -1,12 +1,10 @@
 import React, {useContext} from 'react';
-import {observer} from "mobx-react-lite";
 import {Navigate, Route, Routes} from "react-router-dom";
 import { studentRoute, publicRoutes} from "../routes";
 import {Context} from "../index";
 import {MAIN_ROUTE} from "../utils/consts";
-const AppRouter = observer(() => {
+const AppRouter = () => {
     const {user} = useContext(Context)
-
     return (
         <Routes>
             {user.isStudent && studentRoute.map(({path, Component}) =>
@@ -18,6 +16,6 @@ const AppRouter = observer(() => {
             <Route path='*' element={<Navigate to={MAIN_ROUTE}/>} />
         </Routes>
     );
-});
+};
 
 export default AppRouter;
